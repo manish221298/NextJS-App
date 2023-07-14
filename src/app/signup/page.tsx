@@ -3,29 +3,30 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-// import { axios } from "axios";
-
-interface User {
-  username: string;
-  email: string;
-  password: string;
-}
+import axios  from "axios";
 
 export default function signUp() {
+
+  const router = useRouter()
+
   const [user, setUser] = useState({
     username: "",
     email: "",
     password: "",
   });
 
-  const onSignUp = () => {
-    const formData = {
-      username: user.username,
-      email: user.email,
-      password: user.password
+  const onSignUp = async() => {
+  
+    try{
+      const response = await axios.post("/api/users/signup", user)
+
+      console.log("response data", response.data)
+    }
+    catch(error: any){
+      console.log("error frontend", error.message)
     }
 
-    console.log("form data is", formData)
+    // console.log("form data is", user)
   };
 
   return (

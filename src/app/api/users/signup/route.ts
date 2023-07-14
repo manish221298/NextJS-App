@@ -1,11 +1,11 @@
 import { connect } from "@/dbConfig/dbConfig";
 import User from "@/models/userModel";
 import { NextRequest, NextResponse } from "next/server";
-import { bcryptjs } from "bcryptjs";
+import bcryptjs from "bcryptjs";
 
 connect();
 
-export async function Post(request: NextRequest) {
+export async function POST(request: NextRequest) {
   try {
     const reqBody = await request.json();
     const { username, email, password } = reqBody;
@@ -21,9 +21,9 @@ export async function Post(request: NextRequest) {
 
     // hash password
     const salt = await bcryptjs.genSalt(10);
-    const hashedPassword = bcryptjs.hash(password, salt);
+    const hashedPassword = await bcryptjs.hash(password, salt);
 
-    const newUser = new user({
+    const newUser = new User({
       username,
       email,
       password: hashedPassword,
@@ -36,8 +36,10 @@ export async function Post(request: NextRequest) {
       success: true,
       savedUser,
     });
-    
   } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    return NextResponse.json(
+      { error: "error.message rtyrnt5ujh" },
+      { status: 500 }
+    );
   }
 }
