@@ -3,13 +3,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-// import { axios } from "axios";
-
-interface User {
-  username: string;
-  email: string;
-  password: string;
-}
+import  axios  from "axios";
 
 export default function loginPage() {
   const [user, setUser] = useState({
@@ -17,20 +11,13 @@ export default function loginPage() {
     password: "",
   });
 
-  const onLogin = () => {
-    const formData = {
-      email: user.email,
-      password: user.password
-    }
-
-    console.log("form data is", formData)
+  const onLogin = async () => {
+    const response = await axios.post("/api/users/login")
   };
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-2">
       <h1>Login Page</h1>
-
-      
 
       <label className="mt-3">Email</label>
       <input
@@ -50,7 +37,10 @@ export default function loginPage() {
         placeholder="Enter Password"
       />
 
-      <button onClick={onLogin} className="p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus: border-gray-600">
+      <button
+        onClick={onLogin}
+        className="p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus: border-gray-600"
+      >
         LOGIN
       </button>
       <Link href="/signup">SIGNUP PAGE</Link>
