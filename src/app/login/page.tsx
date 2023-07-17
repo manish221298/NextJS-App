@@ -14,6 +14,8 @@ export default function loginPage() {
     password: "",
   });
 
+  
+
   const onLogin = async () => {
     try{
       const response = await axios.post("/api/users/login", user)
@@ -27,7 +29,6 @@ export default function loginPage() {
     finally{
       console.log("finally code executed");
     }
-   
   };
 
   return (

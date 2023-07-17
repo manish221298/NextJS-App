@@ -21,7 +21,7 @@ export async function POST(request: NextRequest){
         const validatePassword = await bcryptjs.compare(password, user.password)
 
         if(!validatePassword){
-            return NextResponse.json({error: "Invalid Password"}, {status: 401})
+            return NextResponse.json({error: "Invalid Email or Password"}, {status: 401})
         }
 
         // create token data
@@ -34,7 +34,7 @@ export async function POST(request: NextRequest){
         // create token
         const token = await jwt.sign(tokenData, process.env.TOKEN_SECRET!, {expiresIn: "1d"})
 
-        const response = NextResponse.json({message: "Login Successfully", success: true})
+        const response = NextResponse.json({message: "Login Successfully", success: true, status: 200})
 
         response.cookies.set("token", token, {
             httpOnly: true
