@@ -12,7 +12,8 @@ export default function loginPage() {
   });
 
   const onLogin = async () => {
-    const response = await axios.post("/api/users/login")
+    const response = await axios.post("/api/users/login", user)
+    console.log("response login data", response.data)
   };
 
   return (
