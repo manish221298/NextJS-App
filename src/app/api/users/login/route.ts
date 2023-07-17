@@ -18,10 +18,10 @@ export async function POST(request: NextRequest){
         }
 
         // check if password is correct
-        const validatePassword = bcryptjs.compare(password, user?.password)
+        const validatePassword = await bcryptjs.compare(password, user.password)
 
         if(!validatePassword){
-            return NextResponse.json({error: "Invalid Password"})
+            return NextResponse.json({error: "Invalid Password"}, {status: 401})
         }
 
         // create token data
